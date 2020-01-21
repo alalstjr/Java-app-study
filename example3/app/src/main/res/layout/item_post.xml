@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/test"
+        android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        >
+        <ImageView
+            android:id="@+id/iv_like"
+            android:background="#454522"
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+        <TextView
+            android:layout_toLeftOf="@+id/iv_share"
+            android:layout_toRightOf="@id/iv_like"
+            android:layout_centerVertical="true"
+            android:text="129038021974901274091274091247019237102983"
+            android:lines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"/>
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_alignParentRight="true"
+            android:background="#333333"
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+    </RelativeLayout>
+
+    <!--  Border-bottom 2px solid #000  -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#000000"/>
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_uploader"
+            android:text="JJunproasdaskdjklasjdklasjdklajdlksjlk"
+            android:lines="1"
+            android:maxLength="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="Test Text String"
+            android:lines="1"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@id/tv_uploader"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</LinearLayout>

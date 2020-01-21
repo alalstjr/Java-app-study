@@ -501,5 +501,431 @@ rectclerView.apply { this: RecyclerView
 - 프로그래밍 변수 이름 생성
     - https://www.curioustore.com
 
+# 객체 지향 프로그래밍
+
+- Object-Oriented Programming (OOP)
+    - 각광받고 있는 컴퓨터 프로그래밍 방식중 하나
+    - `실제 세계처럼 객체`이들이 존재하고 객체 사이에 메세지를 주고 받으면서 `상호작용하여 프로그램이 동작`
+        - 객체는 `데이터 및 행동`을 같이 포함
+    - 상속 관계 활용
+        - 테스트를 마친 `완전한 클래스를 상속`받음
+    - 재정의 `(overriding) 다형성 개념` 사용
+        - 상속 받은 클래스에서 `메소드를 재정의`해서 원하는 작업 수행
+    - 동적 바인딩
+        - 실행 중에 적절한 클래스의 메소드를 수행하는 등의 다형성 개념 실현
+        - 미리 만들어 놓은 클래스에서 나중에 상속 받은 클래스의 메소드 실행
+
+## 상속성(inheritance)
+
+- 클래스가 상위 클래스의 특성을 이어받을 수 있는 특성
+- Modeling: 서로 연관 있는 클래스들을 계층적인 구조로 표현할 수 있으며, 자식 클래스로 갈수록 일반적인 것에서 특수한 것으로 이동
+
+사람 - 교수
+사람 - 학생 - 학부생
+사람 - 학생 - 대학원생
+
+- 실제 업무에서는 개발과 테스트를 거친 안정된 클래스를 사용하다가 수정하여야 할 때 그 클래스를 상속 받아서 필요한 부분만 수정
+
+급여 - 수정 급여
+Activity - MyActivity
+
+## 안드로이드 프로그래밍
+
+- Android(Google)에서 이미 만들어 놓은 Application Framework
+    - 이미 상호 작용하면서 동작하도록 만들어져 있음
+    - 필요한 클래스를 찾아서 원하는 메소드를 오버라이딩하여 프로그램 개발
+- 뭘 배워야 하는가?
+    - Android에서 어떤 클래스를 구현해 놨는지 알아야 함
+    - 어떤 클래스를 상속 받을지 알아야 함
+    - 그 클래스에서 어떤 메소드를 오버라이딩할지 알아야 함
+
+## 프로젝트 
+
+> MainActivity.class
+
+~~~
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}
+~~~
+
+setContentView 란 xml 파일의 텍스트 파일을 메모리로 읽어 들여서 객체로 만들어 화면에 보여주도록 해주는 메소드
+`xml 을 읽어서 객체들로 만드는 과정을 인플레이션` 이라고 합니다.
+
+setContentView() 메소드가 하는일은 화면의 content 부분을 지정시켜주는 메소드
+R.layout.activity_main 파일을 가져와 보여줍니다.
+
+R = res 를 의미합니다.
+
+> /res/layout/activity_main.xml
+
+해당 위치에 hello word 저장되어 있다는것을 확인할 수 있습니다. 
+
+> /res/AndroidManifest.xml
+
+응용프로그램이 하는일들을 상세하게 작성하는 곳
+만약 작성하지 않고 실행하면 에러가 발생하게 됩니다.
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplication">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+~~~
+
+현재는 화면이 하나 존재하고 그것은 MainActivity 클래스입니다.
+만약에 여러개의 화면이 존재한다면 계속해서 추가하면 됩니다.
+
+# XML 및 Layout
+
+- Layout은 UI 정의
+    - View (Button 등) 및 View Group (Container, Layout) 배치
+- XML (Extensible Markup Language) 형식으로 저장
+    - 데이터 위주
+    - 공유를 위한 데이터 + 구조 정의 (설정 파일 등)
+    - Human Readable and Machine Readable (시람이 읽기 편하고 컴퓨터에서도 처리하기 편한다)
+    - 텍스트 파일이어서 운영체제간 상호운용성 높음
+    - Database의 테이블 구조 표현 용이
+    - 데이터 전송에 유용함
+        - 최근엔 데이터 전송을 위해서 JSON 많이 사용
+    - User Interface의 Layout 정의에 많이 사용됨
+         - Android, JavaFX (FXML), C# WPF (XAML)등
+
+- 미리 정의된 Tag 없음
+- Extensible 의 의미
+    - 사용자가 Tag 정의 가능
+- Prolog
+    - <?xml version="10" encoding="UTF-8"?>
+    - version 부분은 사용자가 변경하면 안됨
+    - Prolog 위에 주석 <!----> 안됨
+- 단 한 개의 Root Element 존재
+    - Top level element
+- 대소문자 구별
+- Attribute: 시작 Tag에 포함
+    - Name-Value pair (NV-pair)
+    - Value 부분은 쌍따옴표 또는 따옴표로 묶어야 함
+        - <TextView text="안녕하세요">
+
+- Tag 정의시 같은 Tag를 다른 의미로 쓰게 되면 Name Confict 발생
+    - 예를 들면, method를 다른 의미의 Tag로 사용
+        - <method>Android<method>와 <method>ToString<method>
+    - 앞에 prefix를 붙여 해결 가능
+        - <p:method>Android</p:method>와 <n:method>ToString</n:method>
+    - 문제는 계속됨, prefixeh Name Confict 가능
+
+# 안드로이드
+
+> example1 Project
+
+- Activity
+    - 눈에 보일때만 작동
+    - 윈도우의 창 혹은 맥의 finder 라고 생각하면 된다.
+    - Activity는 곧 화면이다` UI를 보야주고 해동까지 한다.
+
+- Service
+    - 눈에는 보이지 않지만 작동
+
+- BroadcastReceiver
+    - 알림의 상태를 알려주는 역할
+
+- ContentProvider
+    - 자료 제공자 사진을 가져오거나 주소록의 데이터를 가져오거나 그 밖에 어플리케이션에서 보관하는 데이터 정보를 가져올때 사용
+
+- intent 
+    - 다른 Activity를 시작할 수 있도록 도와줍니다. (명시적)
+    - 다른 앱을 실행하도록 도와줍니다. (암시적)
+    - 정보를 전달해주는 역할
+
+> MainActivity.class
+
+~~~
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+}
+~~~
+
+> AndroidManifest.xml
+
+~~~
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.example1">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".MainActivity"></activity>
+
+    </application>
+</manifest>
+~~~
+
+activity 추가 후 run 을 실행합니다.
+
+~~~
+Error running 'MainActivity': The activity must be exported or contain an intent-filter
+~~~
+
+다음과 같은 에러가 발생합니다.
+
+~~~
+...
+<activity android:name=".MainActivity">
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN"></action>
+        <category android:name="android.intent.category.LAUNCHER"/>
+    </intent-filter>
+</activity>
+...
+~~~
+
+값을 추가햐여 activiy 초기값을 지정해 줍니다.
+
+## 생명주기 확인하기
+
+> MainActivity.class
+
+~~~
+public class MainActivity extends Activity {
+
+    public static final String TAG = "MainActivity";
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+}
+~~~
+
+프로젝트를 다시 실행 후 로그를 확인해보면
+
+~~~
+2020-01-21 17:46:31.415 6338-6338/? D/MainActivity: onCreate
+2020-01-21 17:46:31.421 6338-6338/? D/MainActivity: onStart
+2020-01-21 17:46:31.421 6338-6338/? D/MainActivity: onResume
+~~~
+
+그리고 프로젝트의 잠시 나가기 버튼을 클릭하면
+
+~~~
+2020-01-21 17:47:56.473 6338-6338/? D/MainActivity: onPause
+2020-01-21 17:47:56.525 6338-6338/? D/MainActivity: onStop
+~~~
+
+나갔던 프로젝트를 다시 들어오면
+
+~~~
+2020-01-21 17:48:07.300 6338-6338/? D/MainActivity: onRestart
+2020-01-21 17:48:07.301 6338-6338/? D/MainActivity: onStart
+2020-01-21 17:48:07.302 6338-6338/? D/MainActivity: onResume
+~~~
+
+이렇게 프로젝트의 생며주기를 확인할 수 있습니다.
+
+# BUTTON Itent 걸어보기
+
+> example1 Project
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:text="CALL"
+        android:id="@+id/btn_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+~~~
+
+Button 간단하게 만들어 줍니다.
+
+Click Itent를 걸어주기 위해서 MainActivity 위치에 View.OnClickListener 상속 받은 후 메소드를 오버라이드 합니다.
+
+> MainActivity.class
+
+~~~
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Call 이벤트
+        Button buttonCall = findViewById(R.id.btn_call);
+        buttonCall.setOnClickListener(this);
+
+        // Intent 이벤트
+        Button buttonIndent = findViewById(R.id.btn_intent);
+        buttonIndent.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        // Call 이벤트
+        Toast.makeText(this, "Click!!", Toast.LENGTH_SHORT).show();
+
+        // Indent 이벤트
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_ALL_APPS);
+        startActivity(intent);
+    }
+}
+~~~
+
+button.setOnClickListener(this); 이벤트를 부여함으로서 onClick 메소드가 실행됩니다.
+
+## 명시적 Intent
+
+> MainActivity.class
+
+~~~
+...
+@Override
+public void onClick(View v) {
+    Intent intent = new Intent(MainActivity.this, CallActivity.class);
+    intent.putExtra("intent-message", "jjunpro");
+    startActivity(intent);
+}
+~~~
+
+> CallActivity.class
+
+~~~
+public class CallActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_call);
+
+        String message = getIntent().getStringExtra("intent-message");
+
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+}
+~~~
+
+> activity_call.xml
+
+~~~
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/text1"
+    android:text="Text1"
+    tools:ignore="MissingConstraints" />
+~~~
+
+MainActivity 에서 전달받은 String 값을 출력하는것을 확인할 수 있습니다.
+
+# View
+
+## TextView
+
+~~~
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Hello World!"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+~~~
+
+## ImageView
+
+이미지 파일을 /res/drawable 폴더에 넣습니다.
+
+그리고 표현하려는 위치 xml 이미지를 추가합니다.
+
+> activity_main.xml 
+
+~~~
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@drawable/testImg"
+    android:scaleType="centerCrop"
+    tools:ignore="MissingConstraints" />
+~~~
+
+
+
 # 출처
 http://www.kocw.net/home/search/kemView.do?kemId=1319211
